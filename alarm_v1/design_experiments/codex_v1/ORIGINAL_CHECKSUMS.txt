@@ -1,0 +1,5 @@
+514747343d6a6c7b2d36e39fce1d9c13423a6d70  app/web/app.js
+cb03eab59c9b213640584244db4c38beb46069f2  app/web/charts.js
+00a8f4ee8a265703be5d2b33830a82ca3441564a  app/web/i18n.js
+6ac5a69eabbe4d144ade4709585f64981d536587  app/web/index.html
+fab8d6b01e5b899f0789b71ecae899857662a0ee  app/web/styles.css

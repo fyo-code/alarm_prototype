@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Alarmă stoc — covoare</title>
+<link rel="stylesheet" href="/design/codex_v1/static/styles.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='13' fill='none' stroke='%2310161d' stroke-width='4'/><path d='M16 3a13 13 0 0 1 13 13H16z' fill='%23D14343'/></svg>">
+</head>
+<body>
+
+<div class="app-shell">
+  <aside class="rail">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">A</span>
+      <span class="brand-copy"><b>ALARMĂ STOC</b><span id="brandSub">covoare · v1</span></span>
+    </div>
+
+    <nav class="tabs" id="tabs" aria-label="Navigare principală"></nav>
+
+    <div class="rail-legend" id="railLegend" aria-label="Legendă stare stoc"></div>
+
+    <div class="rail-controls">
+      <div class="control-row">
+        <span class="control-label" id="basisLabel">Afișare</span>
+        <div class="toggle" id="basisToggle"></div>
+      </div>
+      <div class="control-row">
+        <span class="control-label" id="langLabel">Limbă</span>
+        <div class="toggle" id="langToggle"></div>
+      </div>
+    </div>
+  </aside>
+
+  <div class="workspace">
+    <header class="workbar">
+      <div>
+        <div class="eyebrow" id="workEyebrow">Decizie stoc</div>
+        <div class="work-title" id="workTitle">Fotografia</div>
+      </div>
+      <div class="work-meta" id="workMeta"></div>
+    </header>
+
+    <div class="ribbon" id="ribbon">
+      <div class="ribbon-in">
+        <div class="ribbon-icon" aria-hidden="true">!</div>
+        <div><b id="ribbonT"></b> <span id="ribbonBody"></span></div>
+        <button class="x" id="ribbonX" type="button" title="ascunde">✕</button>
+      </div>
+    </div>
+
+    <main>
+      <div id="view" class="loading">…</div>
+    </main>
+
+    <footer>
+      <div class="foot-in" id="foot"></div>
+    </footer>
+  </div>
+</div>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawerSku" aria-hidden="true">
+  <div class="drawer-head">
+    <div class="grow">
+      <h3 id="drawerSku"></h3>
+      <div class="n" id="drawerName"></div>
+    </div>
+    <button class="close" id="drawerClose" type="button" aria-label="Închide">✕</button>
+  </div>
+  <div class="drawer-body" id="drawerBody"></div>
+</aside>
+
+<script src="/design/codex_v1/static/i18n.js"></script>
+<script src="/design/codex_v1/static/charts.js"></script>
+<script src="/design/codex_v1/static/app.js"></script>
+</body>
+</html>

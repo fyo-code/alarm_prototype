@@ -1,0 +1,139 @@
+{
+  "_comment": "Alarm V1 — every tunable lives here. Nothing in the code hardcodes a threshold, a colour or a path. Changing category/paths should be enough to run this for another product group or another company.",
+  "category": {
+    "slug": "covoare",
+    "label_ro": "Covoare",
+    "label_en": "Rugs"
+  },
+  "as_of": "2026-06-30",
+  "as_of_note_ro": "Stoc depozit la IUNIE 2026 (export cu COD ARTICOL). Magazinele: fiecare cu ultima poziție raportată — 4 magazine la iunie 2026, Constanța/Iași/Oradea încă la decembrie 2025. Datele exacte pe fiecare strat sunt în Verificare.",
+  "as_of_note_en": "Importer stock at JUNE 2026 (code-keyed export). Stores: each contributes its last reported position — 4 stores at June 2026, Constanța/Iași/Oradea still at December 2025. Exact per-layer dates are on the Check page.",
+  "stock_universe": "warehouse+stores",
+  "windows": {
+    "velocity_short_days": 90,
+    "velocity_long_days": 365,
+    "dead_days": 90,
+    "inactive_days": 180,
+    "variability_months": 12
+  },
+  "velocity": {
+    "short_weight": 0.65,
+    "_comment": "blended monthly rate = w*short_window_rate + (1-w)*long_window_rate; recency-leaning but not jumpy"
+  },
+  "replenishment": {
+    "default_lead_time_days": 90,
+    "default_lead_time_source": "ASSUMED — no factory lead times received yet",
+    "review_period_months": 3.0,
+    "review_period_source": "ASSUMED — import ordering cadence roughly quarterly per zone",
+    "service_level_z": 1.28,
+    "service_level_pct": 90,
+    "min_sigma_floor": "poisson",
+    "overstock_factor": 2.0,
+    "_comment": "SS = z * sigma_monthly * sqrt(LT_months + review_months); ROP = rate*LT + SS; target = rate*(LT+review) + SS"
+  },
+  "taxonomy": {
+    "_comment": "Tibi's 5 colours stay the top level. Each colour that hides two different decisions is split into a sub-state — this is the '8 quadrants' he asked about.",
+    "colours": {
+      "green": {
+        "hex": "#2E9E5B",
+        "ro": "Sănătos",
+        "en": "Healthy"
+      },
+      "orange": {
+        "hex": "#E8A33D",
+        "ro": "De comandat curând",
+        "en": "Reorder soon"
+      },
+      "red": {
+        "hex": "#D14343",
+        "ro": "Critic",
+        "en": "Critical"
+      },
+      "blue": {
+        "hex": "#2F72C4",
+        "ro": "Supra-stoc",
+        "en": "Overstocked"
+      },
+      "grey": {
+        "hex": "#8A8F98",
+        "ro": "Stoc mort",
+        "en": "Dead stock"
+      },
+      "black": {
+        "hex": "#3A3F47",
+        "ro": "Inactiv",
+        "en": "Inactive"
+      }
+    },
+    "substates": {
+      "red_out": {
+        "colour": "red",
+        "ro": "Stoc 0, se vinde",
+        "en": "Out of stock, still selling"
+      },
+      "red_low": {
+        "colour": "red",
+        "ro": "Sub timpul de livrare",
+        "en": "Below lead time"
+      },
+      "grey_active": {
+        "colour": "grey",
+        "ro": "Mort, produs activ",
+        "en": "Dead, product active"
+      },
+      "grey_phaseout": {
+        "colour": "grey",
+        "ro": "Mort, în phase-out",
+        "en": "Dead, phase-out"
+      },
+      "blue_slow": {
+        "colour": "blue",
+        "ro": "Supra-stoc, se mișcă",
+        "en": "Overstocked, moving"
+      },
+      "blue_extreme": {
+        "colour": "blue",
+        "ro": "Supra-stoc extrem (>24 luni)",
+        "en": "Extreme overstock (>24 months)"
+      }
+    },
+    "extreme_overstock_months": 24
+  },
+  "money": {
+    "basis": "cost",
+    "basis_note_ro": "Valoarea stocului = cost de achiziție (VALOARE STOC / STOC din exportul depozitului). Este banul blocat, nu cifra de afaceri potențială.",
+    "basis_note_en": "Stock value = acquisition cost (VALOARE STOC / STOC from the warehouse export). This is capital tied up, not potential revenue.",
+    "cost_fallback_ratio_on_price": 0.55,
+    "cost_fallback_note": "ASSUMED — where no warehouse cost exists, cost = 55% of realised average selling price"
+  },
+  "export": {
+    "multiplier_cell": "B2",
+    "default_multiplier": 1.0,
+    "_comment": "Tibi's real workflow: export, multiply every line by one factor to hit factory minimums. The export ships with that factor as a live Excel formula."
+  },
+  "ui": {
+    "default_language": "ro",
+    "top_n": 10,
+    "focus_family_note": "Scope discipline (brief §6): validate one gamă end-to-end before widening."
+  },
+  "rug_inclusion": {
+    "_comment": "Which importer-stock buckets count as rugs. Codes already present in the sales-derived rug universe are always included. These buckets cover codes that appear ONLY in warehouse stock and have never sold — without them, never-sold dead stock is invisible, which is the opposite of the tool's purpose.",
+    "include_name_buckets": [
+      "rugs_no_code_match"
+    ],
+    "exclude_name_buckets": [
+      "bath_mats",
+      "accessories",
+      "broadloom_and_grass",
+      "stair_treads",
+      "other"
+    ],
+    "exclusion_note": "Bath mats, floor adhesive, fixing clips, price labels, broadloom/mocheta and stair treads are real INDOMEX stock but a different product family. Flip a bucket into include_name_buckets to bring it in."
+  },
+  "producer": {
+    "_comment": "Producer attribution. SUBCLASA (real data) always wins, then FURNIZOR EXT. Only if both are absent does prefix inference apply, and every inferred row is stamped INFERRED_from_code_prefix so it is never mistaken for source data.",
+    "infer_from_code_prefix": true,
+    "infer_prefix_len": 3,
+    "infer_note": "A 3-letter SKU code prefix is used ONLY where it maps to exactly one producer among codes that carry a real SUBCLASA. Set infer_from_code_prefix=false to switch this off; those rows then read NEATRIBUIT."
+  }
+}

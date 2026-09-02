@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Generated artefacts — rebuild with `python -m pipeline.build`
+alarm_v1/data/
+alarm_v1/exports/
+
+# Raw source exports (business data, not for version control)
+alarm_v1/data_source/
+
+# macOS
+.DS_Store
